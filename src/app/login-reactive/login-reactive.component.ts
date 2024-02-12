@@ -9,8 +9,17 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class LoginReactiveComponent implements OnInit {
 
-  email = new FormControl('', {validators: [Validators.required, Validators.email]});
-  password = new FormControl('', {validators: [Validators.required, Validators.minLength(8)]})
+  email = new FormControl('', {
+    validators: [Validators.required, Validators.email],
+    updateOn: 'blur'
+  });
+  password = new FormControl('', {
+    validators: [
+      Validators.required,
+      Validators.minLength(8),
+      // createPasswordStrengthValidator() // TODO define a custom-validator function and plug it in our form control
+    ]
+  });
   form = new FormGroup({
     email: this.email,
     password: this.password
