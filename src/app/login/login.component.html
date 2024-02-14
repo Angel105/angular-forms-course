@@ -9,6 +9,7 @@
         <input matInput type="email" name="email"
                ngModel  #email="ngModel"
                required email minlength="3" maxlength="20"
+               pattern="[a-z]+"
                placeholder="Email">
 
         <mat-error *ngIf="email.errors?.required">The email is mandatory.</mat-error>
@@ -17,6 +18,9 @@
             but it only has {{ email.errors?.minlength.actualLength}}.
         </mat-error>
         <mat-error *ngIf="email.errors?.email">This is not a valid email.</mat-error>
+
+        <mat-error *ngIf="email.errors?.pattern">Only lowercase letters allowed</mat-error>
+
       </mat-form-field>
 
       <mat-form-field>
