@@ -8,7 +8,7 @@
       <mat-form-field>
 
         <input matInput type="email" name="email"
-               ngModel  [ngModelOptions]="{updateOn: 'change'}"
+               ngModel  [ngModelOptions]="{updateOn: 'submit'}"
                #email="ngModel"
                (ngModelChange)="onEmailChange($event)"
                required email minlength="3" maxlength="20"
@@ -31,8 +31,7 @@
 
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit"
-              [disabled]="!loginForm.valid">
+      <button mat-raised-button color="primary" type="submit">
         Login
       </button>
 
