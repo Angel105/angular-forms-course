@@ -22,4 +22,9 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm, $submitEvent: any) {
     console.log(loginForm.value, loginForm.valid, $submitEvent);
   }
+
+
+  onEmailChange(change: string) {
+    console.log(change);
+  }
 }
