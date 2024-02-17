@@ -10,7 +10,7 @@ import {createPasswordStrengthValidator} from "../validators/password-strength.v
 })
 export class LoginReactiveComponent implements OnInit {
 
-  form: FormGroup = this.fb.group({
+  form = this.fb.group({
     email: ['', {
       validators: [Validators.required, Validators.email],
       updateOn: 'blur'
