@@ -2,6 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {courseTitleValidator} from "../../validators/course-title.validator";
 import {CoursesService} from "../../services/courses.service";
+import {Observable} from "rxjs";
+
+
+interface CourseCategory {
+  code: string;
+  description: string;
+}
 
 @Component({
   selector: 'create-course-step-1',
@@ -16,17 +23,20 @@ export class CreateCourseStep1Component implements OnInit {
       updateOn: 'blur'
     }],
     releasedAt: [new Date(), Validators.required],
+    category: ['BEGINNER', Validators.required],
     downloadsAllowed: [false, Validators.requiredTrue],
     longDescription: ['', [Validators.required, Validators.minLength(3)]]
 
   });
+
+  courseCategories$: Observable<CourseCategory[]>;
 
 
   constructor(private fb: FormBuilder, private courses: CoursesService) {
   }
 
   ngOnInit() {
-
+    this.courseCategories$ = this.courses.findCourseCategories();
   }
 
   get courseTitle() {
