@@ -40,4 +40,10 @@ export class LoginReactiveComponent implements OnInit {
 
     });
   }
+
+  reset() {
+    this.form.reset();
+
+    console.log(this.form.value);
+  }
 }
