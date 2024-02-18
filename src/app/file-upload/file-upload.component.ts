@@ -10,7 +10,7 @@ import {ControlValueAccessor} from "@angular/forms";
   templateUrl: "file-upload.component.html",
   styleUrls: ["file-upload.component.scss"]
 })
-export class FileUploadComponent implements ControlValueAccessor { // TODO methods of ControlValueAccessor interface to be implemented
+export class FileUploadComponent implements ControlValueAccessor {
 
   @Input()
   requiredFileType: string;
@@ -19,6 +19,11 @@ export class FileUploadComponent implements ControlValueAccessor { // TODO metho
 
   fileUploadError = false;
   uploadProgress: number;
+
+  onChange = (fileName: string) => {};
+  onTouched = () => {};
+
+  disabled= false;
 
   constructor(private http: HttpClient) {
   }
@@ -53,8 +58,32 @@ export class FileUploadComponent implements ControlValueAccessor { // TODO metho
           if (event.type == HttpEventType.UploadProgress) {
             this.uploadProgress = Math.round(100 * (event.loaded / event.total));
           }
+          else if(event.type == HttpEventType.Response) {
+            this.onChange(this.fileName);
+          }
         });
     }
 
+  }
+
+  writeValue(value: any): void {
+    this.fileName = value;
+  }
+
+  registerOnChange(onChange: any){
+    this.onChange = onChange;
+  }
+
+  registerOnTouched(onTouched: any): void {
+    this.onTouched = onTouched;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  onClick(fileUpload: HTMLInputElement) {
+    this.onTouched();
+    fileUpload.click();
   }
 }
